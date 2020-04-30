@@ -3,7 +3,7 @@
 let myMap;
 let canvas;
 const mappa = new Mappa('Leaflet');
-let places = { RI: {}, ME: {}, BOS: {}, CT: {}, LA: {}, NYC: {}, FL: {}, RW: {}, MX: {}, HK: {}, TH: {}, GUA: {}, PARIS: {}, LON: {} };
+let places = { RI: {}, ME: {}, BOS: {}, CT: {}, LA: {}, FL: {}, RW: {}, MX: {}, HK: {}, TH: {}, GUA: {}, PARIS: {}, LON: {} };
 
 const options = {
   lat: 39,
@@ -17,9 +17,33 @@ function setup () {
   myMap = mappa.tileMap(options);
   myMap.overlay(canvas);
 
-  // associate each image w name
-  places.RI.image = 'Image-2.jpeg';
-  places.RI.text = 'Some text about RI';
+  // associate each image w name & text
+  places.RI.image = 'Image-1.jpeg';
+  places.RI.text = 'Growing up, I spent the summers camping in Rhode Island with my family and all of my cousins. Some of my best childhood memories were made on the beach in RI.';
+  places.ME.image = 'Image-2.jpeg';
+  places.ME.text = 'My families winter home, which was built the year I was borrn, is about 90 miles from the Canadian border. I have countless memories there ranging from Christmas morning, to muddy summers, to ski-filled days. I have grown to appreciate the peace and quiet as I have gotten older.';
+  places.BOS.image = 'Image-3.jpeg';
+  places.BOS.text = 'Since studying at Emmanuel, Boston has become the city I call home for the majority of the year. I love being able to study, live, and explore the city of Boston!';
+  places.CT.image = 'Image-4.jpeg';
+  places.CT.text = 'I grew up in the small town of Prospect, CT & no matter how far I go, there is no place like home.';
+  places.LA.image = 'Image-5.jpeg';
+  places.LA.text = 'My brother lived in California for about 4 years. About one or two times per year, I would visit and was able to explore many different areas of California and its beautiful sights.';
+  places.FL.image = 'Image-7.jpeg';
+  places.FL.text = 'The most magical place on Earth! My mom is Disney Worlds number one fan and brought my siblings and I nearly each year while we were growing up! Many embarassing photos, like this, were the result!';
+  places.RW.image = 'Image-8.jpeg';
+  places.RW.text = 'At the end of my sophomore year of high school, I travelled to our sister school in Rwanda. This trip was one of my most memorable and influential experiences of my high school years.';
+  places.MX.image = 'Image-9.jpeg';
+  places.MX.text = 'Mexico is one of my favorite places to visit! Last summer, my entire extended family vacationed in Riviera Maya. Making memories with all of my cousins and grandmother was very special.';
+  places.HK.image = 'Image-10.jpeg';
+  places.HK.text = 'First time travelling alone. Amazing culture and even better memories!';
+  places.TH.image = 'Image-11.JPEG';
+  places.TH.text = 'Thailand is the most beautiful place I have ever been. The experiences I had with my sister while in Thailand are unforgettable.';
+  places.GUA.image = 'Image-12.jpeg';
+  places.GUA.text = 'My family hosted an international student from Guatemala for a summer. Nicole became my unofficial Guatemalan summer sister! I would love to visit eventually.';
+  places.PARIS.image = 'Image-13.jpeg';
+  places.PARIS.text = 'I visited Paris with my mom and my sister. Between the art, the architecture, the amazing crepes, and culture, I had an amazing time.';
+  places.LON.image = 'Image-14.jpeg';
+  places.LON.text = 'One of my favorite cities, behind Boston of course! I was supposed to spend my summer studying in London - thanks COVID-19!';
 
   fill(200, 100, 100);
 
@@ -33,26 +57,19 @@ function mouseClicked () {
   for (let i = 0; i < placeNames.length; i++) {
     const name = placeNames[i];
     const hit = collidePointCircle(mouseX, mouseY, places[name].coords.x, places[name].coords.y, 10);
-    // print('\n' + hit);
-    // print(name);
-    // print(places[name].coords.x);
-    // print(places[name].coords.y);
+
     if (hit === true) {
       clickedPlace = name;
     }
   }
 
-  // At this point, you have a variable called clickedPlace that holds
-  // the name of the location that was clicked OR an empty string
   if (clickedPlace !== '') {
     print(clickedPlace);
     updateImage(places[clickedPlace].image);
+    updateText(places[clickedPlace].text);
   }
 }
 
-function draw () {
-//  AM I PUTTING THE IF STATEMENTS HERE TO CONNECT TO THE HTML
-}
 function drawPoint () {
   clear();
 
@@ -71,9 +88,6 @@ function drawPoint () {
 
   places.LA.coords = myMap.latLngToPixel(33.8847, -118.4109);
   ellipse(places.LA.coords.x, places.LA.coords.y, 10, 10);
-
-  places.NYC.coords = myMap.latLngToPixel(40.7128, -74.0060);
-  ellipse(places.NYC.coords.x, places.NYC.coords.y, 10, 10);
 
   places.FL.coords = myMap.latLngToPixel(28.385233, -81.563873);
   ellipse(places.FL.coords.x, places.FL.coords.y, 10, 10);
@@ -102,4 +116,8 @@ function drawPoint () {
 
 function updateImage (imageName) {
   document.getElementById('LocationImage').src = imageName;
+}
+
+function updateText (text) {
+  document.getElementById('LocationText').innerHTML = text;
 }
