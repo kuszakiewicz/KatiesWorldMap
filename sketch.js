@@ -1,83 +1,105 @@
+/* globals ellipse fill clear createCanvas print collidePointCircle mouseX mouseY */
 
 let myMap;
 let canvas;
 const mappa = new Mappa('Leaflet');
-let RI, ME, BOS, CT, LA, NYC, FL, RW, MX, HK, TH, GUA, PARIS, LON;
+let places = { RI: {}, ME: {}, BOS: {}, CT: {}, LA: {}, NYC: {}, FL: {}, RW: {}, MX: {}, HK: {}, TH: {}, GUA: {}, PARIS: {}, LON: {} };
 
 const options = {
   lat: 39,
   lng: -98,
   zoom: 3,
-  style: "http://{s}.tile.osm.org/{z}/{x}/{y}.png"
-}
+  style: 'http://{s}.tile.osm.org/{z}/{x}/{y}.png'
+};
 
-function setup(){
-  canvas = createCanvas(600,600);
+function setup () {
+  canvas = createCanvas(600, 600);
   myMap = mappa.tileMap(options);
-  myMap.overlay(canvas)
+  myMap.overlay(canvas);
 
-  RI.image = "Image-2.jpeg"
-  //associate each image w name 
+  // associate each image w name
+  places.RI.image = 'Image-2.jpeg';
+  places.RI.text = 'Some text about RI';
 
-  fill(200,100,100);
+  fill(200, 100, 100);
 
   myMap.onChange(drawPoint);
 }
 
-function draw () {
-  if (mouseIsPressed){
-    updateImage(RI.image)
+function mouseClicked () {
+  print(mouseX + ' ' + mouseY);
+  const placeNames = Object.keys(places);
+  let clickedPlace = '';
+  for (let i = 0; i < placeNames.length; i++) {
+    const name = placeNames[i];
+    const hit = collidePointCircle(mouseX, mouseY, places[name].coords.x, places[name].coords.y, 10);
+    // print('\n' + hit);
+    // print(name);
+    // print(places[name].coords.x);
+    // print(places[name].coords.y);
+    if (hit === true) {
+      clickedPlace = name;
+    }
   }
 
+  // At this point, you have a variable called clickedPlace that holds
+  // the name of the location that was clicked OR an empty string
+  if (clickedPlace !== '') {
+    print(clickedPlace);
+    updateImage(places[clickedPlace].image);
+  }
+}
+
+function draw () {
 //  AM I PUTTING THE IF STATEMENTS HERE TO CONNECT TO THE HTML
 }
-function drawPoint(){
+function drawPoint () {
   clear();
 
-  RI = myMap.latLngToPixel(41.4382,-71.5016);
-  fill("red")
-  ellipse(RI.x, RI.y, 10, 10);
+  places.RI.coords = myMap.latLngToPixel(41.4382, -71.5016);
+  fill('red');
+  ellipse(places.RI.coords.x, places.RI.coords.y, 10, 10);
 
-   ME = myMap.latLngToPixel(45.0714,-69.8911);
-  ellipse(ME.x, ME.y, 10, 10);
+  places.ME.coords = myMap.latLngToPixel(45.0714, -69.8911);
+  ellipse(places.ME.coords.x, places.ME.coords.y, 10, 10);
 
-   BOS = myMap.latLngToPixel(42.3601,-71.0589);
-  ellipse(BOS.x, BOS.y, 10, 10);
+  places.BOS.coords = myMap.latLngToPixel(42.3601, -71.0589);
+  ellipse(places.BOS.coords.x, places.BOS.coords.y, 10, 10);
 
-   CT = myMap.latLngToPixel(41.51766,-72.95439);
-  ellipse(CT.x, CT.y, 10, 10);
+  places.CT.coords = myMap.latLngToPixel(41.51766, -72.95439);
+  ellipse(places.CT.coords.x, places.CT.coords.y, 10, 10);
 
-   LA = myMap.latLngToPixel(33.8847,-118.4109);
-  ellipse(LA.x, LA.y, 10, 10);
+  places.LA.coords = myMap.latLngToPixel(33.8847, -118.4109);
+  ellipse(places.LA.coords.x, places.LA.coords.y, 10, 10);
 
-   NYC = myMap.latLngToPixel(40.7128,-74.0060);
-  ellipse(NYC.x, NYC.y, 10, 10);
+  places.NYC.coords = myMap.latLngToPixel(40.7128, -74.0060);
+  ellipse(places.NYC.coords.x, places.NYC.coords.y, 10, 10);
 
-   FL = myMap.latLngToPixel(28.385233,-81.563873);
-  ellipse(FL.x, FL.y, 10, 10);
+  places.FL.coords = myMap.latLngToPixel(28.385233, -81.563873);
+  ellipse(places.FL.coords.x, places.FL.coords.y, 10, 10);
 
-   RW = myMap.latLngToPixel(-1.9441,30.0619);
-  ellipse(RW.x, RW.y, 10, 10);
+  places.RW.coords = myMap.latLngToPixel(-1.9441, 30.0619);
+  ellipse(places.RW.coords.x, places.RW.coords.y, 10, 10);
 
-   MX = myMap.latLngToPixel(20.5536,-87.1760);
-  ellipse(MX.x,MX.y,10,10);
+  places.MX.coords = myMap.latLngToPixel(20.5536, -87.1760);
+  ellipse(places.MX.coords.x, places.MX.coords.y, 10, 10);
 
-   HK = myMap.latLngToPixel(22.3193,114.1694);
-  ellipse(HK.x,HK.y,10,10);
+  places.HK.coords = myMap.latLngToPixel(22.3193, 114.1694);
+  ellipse(places.HK.coords.x, places.HK.coords.y, 10, 10);
 
-   TH = myMap.latLngToPixel(7.9519,98.3381);
-  ellipse(TH.x,TH.y,10,10);
+  places.TH.coords = myMap.latLngToPixel(7.9519, 98.3381);
+  ellipse(places.TH.coords.x, places.TH.coords.y, 10, 10);
 
-   GUA = myMap.latLngToPixel(15.7835,-90.2308);
-  ellipse(GUA.x,GUA.y,10,10);
+  places.GUA.coords = myMap.latLngToPixel(15.7835, -90.2308);
+  ellipse(places.GUA.coords.x, places.GUA.coords.y, 10, 10);
 
-   PARIS = myMap.latLngToPixel(48.8566,2.3522);
-  ellipse(PARIS.x,PARIS.y,10,10);
+  places.PARIS.coords = myMap.latLngToPixel(48.8566, 2.3522);
+  ellipse(places.PARIS.coords.x, places.PARIS.coords.y, 10, 10);
 
-   LON = myMap.latLngToPixel(51.5074,0.1278);
-  ellipse(LON.x,LON.y,10,10);
+  places.LON.coords = myMap.latLngToPixel(51.5074, 0.1278);
+  ellipse(places.LON.coords.x, places.LON.coords.y, 10, 10);
 }
 
-function updateImage (imageName){
-  document.getElementById("LocationImage").src = imageName
+function updateImage (imageName) {
+  document.getElementById('LocationImage').src = imageName;
 }
