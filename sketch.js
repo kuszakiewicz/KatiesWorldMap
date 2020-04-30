@@ -1,4 +1,4 @@
-/* globals ellipse fill clear createCanvas */
+/* globals ellipse fill clear createCanvas print collidePointCircle mouseX mouseY */
 
 let myMap;
 let canvas;
@@ -19,18 +19,38 @@ function setup () {
 
   // associate each image w name
   places.RI.image = 'Image-2.jpeg';
-
+  places.RI.text = 'Some text about RI';
 
   fill(200, 100, 100);
 
   myMap.onChange(drawPoint);
 }
 
-function draw () {
-  if (mouseIsPressed) {
-    updateImage(places.RI.image);
+function mouseClicked () {
+  print(mouseX + ' ' + mouseY);
+  const placeNames = Object.keys(places);
+  let clickedPlace = '';
+  for (let i = 0; i < placeNames.length; i++) {
+    const name = placeNames[i];
+    const hit = collidePointCircle(mouseX, mouseY, places[name].coords.x, places[name].coords.y, 10);
+    // print('\n' + hit);
+    // print(name);
+    // print(places[name].coords.x);
+    // print(places[name].coords.y);
+    if (hit === true) {
+      clickedPlace = name;
+    }
   }
 
+  // At this point, you have a variable called clickedPlace that holds
+  // the name of the location that was clicked OR an empty string
+  if (clickedPlace !== '') {
+    print(clickedPlace);
+    updateImage(places[clickedPlace].image);
+  }
+}
+
+function draw () {
 //  AM I PUTTING THE IF STATEMENTS HERE TO CONNECT TO THE HTML
 }
 function drawPoint () {
