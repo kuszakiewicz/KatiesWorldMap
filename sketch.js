@@ -1,5 +1,10 @@
 /* globals ellipse fill clear createCanvas print collidePointCircle mouseX mouseY */
 
+/* Final Project: Katie's World Map
+ * by Katie Uszakiewicz <uszakiewiczk@emmanuel.edu>
+ * 7 May 2020
+ */
+
 let myMap;
 let canvas;
 const mappa = new Mappa('Leaflet');
