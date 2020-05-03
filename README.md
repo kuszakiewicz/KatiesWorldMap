@@ -10,6 +10,8 @@ Each red point signifies a place that has importance in my life!
 The instructions are relatively simple! Click on each red point, view the picture, read the text, and 
 enjoy a glimpse into my world! 
 
+https://kuszakiewicz.github.io/KatiesWorldMap/.
+
 **Credits** 
 
 Thank you Professor Sherman for helping me every step of the way! 
